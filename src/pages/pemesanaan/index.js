@@ -5,7 +5,7 @@ import { MyGap, MyHeader } from '../../components';
 import { colors, fonts } from '../../utils';
 
 export default function PemesananServiceAC({ navigation }) {
-  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [selectedIssues, setSelectedIssues] = useState([]);
   const [otherIssue, setOtherIssue] = useState('');
   const [date, setDate] = useState(null);
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -60,6 +60,16 @@ export default function PemesananServiceAC({ navigation }) {
     setDate(selectedDate);
   };
 
+  const toggleIssueSelection = (value) => {
+    setSelectedIssues((prevSelectedIssues) => {
+      if (prevSelectedIssues.includes(value)) {
+        return prevSelectedIssues.filter(issue => issue !== value);
+      } else {
+        return [...prevSelectedIssues, value];
+      }
+    });
+  };
+
   const formatDate = (date) => {
     const months = [
       'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
@@ -72,7 +82,7 @@ export default function PemesananServiceAC({ navigation }) {
   };
 
   const isFormComplete = () => {
-    return selectedIssue && date && selectedTechnician && (selectedIssue !== 'lainnya' || (selectedIssue === 'lainnya' && otherIssue.trim() !== ''));
+    return selectedIssues.length > 0 && date && selectedTechnician && (selectedIssues.includes('lainnya') ? otherIssue.trim() !== '' : true);
   };
 
   return (
@@ -93,7 +103,7 @@ export default function PemesananServiceAC({ navigation }) {
                 <TouchableOpacity
                   key={index}
                   style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}
-                  onPress={() => setSelectedIssue(issue.value)}
+                  onPress={() => toggleIssueSelection(issue.value)}
                 >
                   <View
                     style={{
@@ -107,7 +117,7 @@ export default function PemesananServiceAC({ navigation }) {
                       marginRight: 10,
                     }}
                   >
-                    {selectedIssue === issue.value && (
+                    {selectedIssues.includes(issue.value) && (
                       <View
                         style={{
                           height: 12,
@@ -123,7 +133,7 @@ export default function PemesananServiceAC({ navigation }) {
                   </Text>
                 </TouchableOpacity>
               ))}
-              {selectedIssue === 'lainnya' && (
+              {selectedIssues.includes('lainnya') && (
                 <View style={{ marginTop: 20 }}>
                   <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors.primary, marginBottom: 10 }}>
                     Jelaskan Masalah AC Anda

@@ -120,7 +120,7 @@ export default function MasukSebagai({ navigation }) {
           <View style={{padding:10, backgroundColor:colors.primary, marginTop:5,
           borderRadius:20,}}>
             <Text style={{textAlign:"center", fontFamily:fonts.primary[600], fontSize:25,
-            color:'white'}}>Custumer</Text>
+            color:'white'}}>Customer</Text>
           </View>
         </TouchableNativeFeedback>
             <MyGap jarak={15}/>

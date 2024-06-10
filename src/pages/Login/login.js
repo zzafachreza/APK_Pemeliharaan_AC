@@ -108,7 +108,7 @@ export default function Login({ navigation }) {
 
         <View style={{marginTop:61}}>
           <Text style={{fontFamily:fonts.primary[600], textAlign:"center",
-          color:colors.primary, fontSize:32}}>Custumer</Text>
+          color:colors.primary, fontSize:32}}>Customer</Text>
         </View>
   
             <MyGap jarak={33}/>
