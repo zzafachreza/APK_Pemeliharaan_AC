@@ -1,260 +1,106 @@
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Modal, Image, Picker } from 'react-native';
-import React, { useState } from 'react';
-import DatePicker from 'react-native-date-picker';
-import { MyGap, MyHeader } from '../../components';
-import { colors, fonts } from '../../utils';
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import { apiURL } from '../../utils/localStorage';
+import moment from 'moment';
+import { colors } from '../../utils';
+import { MyButton, MyCalendar, MyGap, MyHeader, MyInput, MyPicker } from '../../components';
+import { showMessage } from 'react-native-flash-message';
 
-export default function PemesananServiceACTeknisi({ navigation }) {
-  const [date, setDate] = useState(null);
-  const [tempDate, setTempDate] = useState(new Date());
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [status, setStatus] = useState('');
-  const [customerName, setCustomerName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [issue, setIssue] = useState('');
+export default function PemesananServiceACTeknisi({ navigation, route }) {
 
-  const backPage = () => {
-    navigation.goBack();
-  };
+  const [customer, setCustomer] = useState([]);
+  const [kirim, setKirim] = useState({
+    input_by: route.params.id,
+    tanggal: moment().format('YYYY-MM-DD'),
+    masalah: '',
+    status: 'Menunggu Servis'
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
+  })
 
-  const hideDatePicker = () => {
-    setDate(tempDate);  // Set the date when hiding the date picker
-    setDatePickerVisibility(false);
-  };
 
-  const handleConfirm = (selectedDate) => {
-    setTempDate(selectedDate);  // Update the temporary date state
-  };
+  useEffect(() => {
+    axios.post(apiURL + 'customer').then(res => {
+      console.log(res.data);
+      setCustomer(res.data);
+      setKirim({
+        ...kirim,
+        fid_user: res.data[0].value
+      })
+    })
+  }, []);
 
-  const formatDate = (date) => {
-    if (!date) return 'Pilih waktu';
-    const months = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-    ];
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    return `${day} ${month} ${year}`;
-  };
+  const sendServer = () => {
+    if (kirim.masalah.length == 0) {
+      showMessage({
+        type: 'danger',
+        message: 'Masalah AC perlu di isi !'
+      })
+    } else {
+      axios.post(apiURL + 'pemesanan_add', kirim).then(res => {
+        console.log(res.data);
+        if (res.data == 200) {
+          showMessage({
+            message: 'Pemesanan Service AC berhasil di simpan !',
+            type: "success"
+          });
+          navigation.goBack();
+        }
+      })
+    }
+  }
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      {/* HEADER */}
-      <MyHeader onPress={backPage} judul="Pemesanan Service AC" />
+    <SafeAreaView style={{
+      flex: 1,
+      backgroundColor: colors.white,
+    }}>
+      <MyHeader judul="Pemesanan Servis AC" onPress={() => navigation.goBack()} />
 
-      <ScrollView>
-        <View style={{ padding: 10 }}>
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary }}>Nama Customer:</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: '#C4C4C4',
-                borderRadius: 10,
-                padding: 10,
-                fontFamily: fonts.primary[400],
-                fontSize: 14,
-                color: colors.black,
-                marginTop: 10,
-              }}
-              placeholder="Isi nama customer"
-              value={customerName}
-              onChangeText={setCustomerName}
-            />
-          </View>
+      <View style={{
+        flex: 1,
+        padding: 20,
+      }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <MyPicker label="Customer" data={customer} onValueChange={x => {
+            setKirim({
+              ...kirim,
+              fid_user: x
+            })
+          }} />
+          <MyGap jarak={20} />
+          <MyInput placeholder="Masukan masalah AC" label="Masalah AC" onChangeText={x => {
+            setKirim({
+              ...kirim,
+              masalah: x
+            })
+          }} />
+          <MyGap jarak={20} />
+          <MyCalendar label="Waktu" onDateChange={x => {
+            setKirim({
+              ...kirim,
+              tanggal: x
+            })
+          }} />
+          <MyGap jarak={20} />
+          <MyPicker label="Status Pemesanan" data={[
+            { label: 'Menunggu Servis', value: 'Menunggu Servis' },
+            { label: 'Sedang Berlansung', value: 'Sedang Berlansung' },
+            { label: 'Selesai', value: 'Selesai' },
+            { label: 'Pesanan Batal', value: 'Pesanan Batal' },
 
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary }}>Email:</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: '#C4C4C4',
-                borderRadius: 10,
-                padding: 10,
-                fontFamily: fonts.primary[400],
-                fontSize: 14,
-                color: colors.black,
-                marginTop: 10,
-              }}
-              placeholder="Isi email"
-              value={email}
-              onChangeText={setEmail}
-            />
-          </View>
-
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary }}>Telepon:</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: '#C4C4C4',
-                borderRadius: 10,
-                padding: 10,
-                fontFamily: fonts.primary[400],
-                fontSize: 14,
-                color: colors.black,
-                marginTop: 10,
-              }}
-              placeholder="Isi telepon"
-              value={phone}
-              onChangeText={setPhone}
-            />
-          </View>
-
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary }}>Alamat:</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: '#C4C4C4',
-                borderRadius: 10,
-                padding: 10,
-                fontFamily: fonts.primary[400],
-                fontSize: 14,
-                color: colors.black,
-                marginTop: 10,
-              }}
-              placeholder="Isi alamat"
-              value={address}
-              onChangeText={setAddress}
-            />
-          </View>
-
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary }}>Masalah AC:</Text>
-            <TextInput
-              style={{
-                borderWidth: 1,
-                borderColor: '#C4C4C4',
-                borderRadius: 10,
-                padding: 10,
-                fontFamily: fonts.primary[400],
-                fontSize: 14,
-                color: colors.black,
-                marginTop: 10,
-              }}
-              placeholder="Isi masalah AC"
-              value={issue}
-              onChangeText={setIssue}
-            />
-          </View>
-
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary }}>Waktu:</Text>
-            <TouchableOpacity
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                padding: 10,
-                borderWidth: 1,
-                borderColor: '#C4C4C4',
-                borderRadius: 10,
-                marginTop: 10,
-              }}
-              onPress={showDatePicker}
-            >
-              <Text style={{ fontFamily: fonts.primary[400], fontSize: 14, color: colors.black, flex: 1 }}>
-                {formatDate(date)}
-              </Text>
-              <Image source={require('../../assets/calendar-icon.png')} style={{ width: 20, height: 20 }} />
-            </TouchableOpacity>
-          </View>
-
-          <View style={{ marginBottom: 20 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary }}>Status Pemesanan:</Text>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: '#C4C4C4',
-                borderRadius: 10,
-                marginTop: 10,
-                paddingLeft: 10,
-              }}
-            >
-              <Picker
-                selectedValue={status}
-                onValueChange={(itemValue, itemIndex) => setStatus(itemValue)}
-                style={{ height: 50, width: '100%' }}
-              >
-                <Picker.Item label="Menunggu Servis" value="Menunggu_servis" />
-                <Picker.Item label="Sedang Berlansung" value="sedang_berlansung" />
-                <Picker.Item label="Selesai" value="selesai" />
-                <Picker.Item label="Pesanan Batal" value="pesanan_batal" />
-              </Picker>
-            </View>
-          </View>
-
-          <TouchableOpacity
-            style={{
-              backgroundColor: colors.primary,
-              padding: 15,
-              borderRadius: 10,
-              alignItems: 'center',
-              marginTop: 20,
-            }}
-            onPress={() => {
-              // Action ketika tombol ditekan
-              console.log('Simpan ditekan');
-            }}
-          >
-            <Text style={{ color: 'white', fontSize: 15, fontFamily: fonts.primary[600] }}>
-              Simpan
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-
-      <Modal
-        transparent={true}
-        visible={isDatePickerVisible}
-        onRequestClose={hideDatePicker}
-      >
-        <View style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: 'rgba(0,0,0,0.5)'
-        }}>
-          <View style={{
-            width: 300,
-            padding: 20,
-            backgroundColor: 'white',
-            borderRadius: 10,
-            alignItems: 'center'
-          }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 18, color: colors.primary }}>
-              Pilih Tanggal
-            </Text>
-            <DatePicker
-              date={tempDate}
-              onDateChange={handleConfirm}
-              mode="date"
-              textColor="black"
-              style={{ marginTop: 20 }}
-            />
-            <View style={{ flexDirection: 'row', marginTop: 20 }}>
-              <TouchableOpacity
-                style={{
-                  padding: 10,
-                  backgroundColor: colors.primary,
-                  borderRadius: 10,
-                  marginHorizontal: 10
-                }}
-                onPress={hideDatePicker}
-              >
-                <Text style={{ color: 'white', fontFamily: fonts.primary[600] }}>Tutup</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-    </View>
-  );
+          ]} onValueChange={x => {
+            setKirim({
+              ...kirim,
+              status: x
+            })
+          }} />
+          <MyGap jarak={20} />
+          <MyButton onPress={sendServer} title="Simpan" />
+        </ScrollView>
+      </View>
+    </SafeAreaView>
+  )
 }
+
+const styles = StyleSheet.create({})

@@ -1,319 +1,265 @@
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Modal, Image } from 'react-native';
-import React, { useState } from 'react';
-import DatePicker from 'react-native-date-picker';
-import { MyGap, MyHeader } from '../../components';
+import { Image, Linking, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import { apiURL, getData } from '../../utils/localStorage';
+import moment from 'moment';
 import { colors, fonts } from '../../utils';
+import { MyButton, MyCalendar, MyGap, MyHeader, MyInput, MyPicker } from '../../components';
+import { showMessage } from 'react-native-flash-message';
+import { FlatList } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { Calendar, LocaleConfig } from 'react-native-calendars';
 
-export default function PemesananServiceAC({ navigation }) {
-  const [selectedIssues, setSelectedIssues] = useState([]);
-  const [otherIssue, setOtherIssue] = useState('');
-  const [date, setDate] = useState(null);
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [selectedTechnician, setSelectedTechnician] = useState(null);
+export default function PemesananServiceAC({ navigation, route }) {
 
-  const issues = [
-    { label: 'Tidak Dingin', value: 'tidak_dingin' },
-    { label: 'Bocor', value: 'bocor' },
-    { label: 'Berbau', value: 'berbau' },
-    { label: 'Tidak Ada', value: 'tidak_ada' },
-    { label: 'Lainnya', value: 'lainnya' },
-  ];
+  const [teknisi, setTeknisi] = useState([]);
+  const [kirim, setKirim] = useState({
+    tanggal: moment().add(1, 'day').format('YYYY-MM-DD'),
+    id_teknisi: '',
 
-  const technicians = [
-    {
-      name: 'Rudi Iryawan',
-      address: 'Bandung',
-      email: 'rudiiryawan@gmail.com',
-      phone: '089665476664',
-      image: require('../../assets/rudi.png'), // Update the path to the correct image
-    },
-    {
-      name: 'Ridwan Kamil',
-      address: 'Bandung',
-      email: 'agusp@itian@gmail.com',
-      phone: '0896656548632',
-      image: require('../../assets/ridwan.png'), // Update the path to the correct image
-    },
-    {
-      name: 'Arka Syahputra',
-      address: 'Bandung',
-      email: 'arkas@gmail.com',
-      phone: '0896567876664',
-      image: require('../../assets/arka.png'), // Update the path to the correct image
-    },
-  ];
+  });
 
-  const backPage = () => {
-    navigation.goBack();
-  };
+  const [user, setUser] = useState({})
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
+  const [lainnya, setLainnya] = useState('')
 
-  const hideDatePicker = () => {
-    setDate((prevDate) => prevDate || new Date());
-    setDatePickerVisibility(false);
-  };
+  const [masalah, setMasalah] = useState([
+    { nama: 'Tidak Dingin', cek: 0 },
+    { nama: 'Bocor', cek: 0 },
+    { nama: 'Berbau', cek: 0 },
+    { nama: 'Tidak Ada', cek: 0 },
+    { nama: 'Lainnya', cek: 0 },
+  ]);
 
-  const handleConfirm = (selectedDate) => {
-    setDate(selectedDate);
-  };
 
-  const toggleIssueSelection = (value) => {
-    setSelectedIssues((prevSelectedIssues) => {
-      if (prevSelectedIssues.includes(value)) {
-        return prevSelectedIssues.filter(issue => issue !== value);
-      } else {
-        return [...prevSelectedIssues, value];
-      }
+  useEffect(() => {
+
+    getData('user').then(uu => {
+      setUser(uu)
+    })
+    axios.post(apiURL + 'teknisi').then(res => {
+      console.log(res.data);
+      setTeknisi(res.data);
+
+    })
+  }, []);
+
+  const sendServer = () => {
+    console.log({
+      ...kirim,
+      masalah: masalah.filter(i => i.cek > 0),
+      lainnya: lainnya
     });
-  };
+    if (masalah.filter(i => i.cek > 0).length == 0) {
+      showMessage({
+        type: 'danger',
+        message: 'Silahkan pilih masalah AC'
+      })
+    } else if (kirim.id_teknisi.length == 0) {
+      showMessage({
+        type: 'danger',
+        message: 'Silahkan pilih teknisi'
+      })
+    } else {
+      let WATemplate = `*PEMESANAN SERVICE AC*%0A%0A`;
+      WATemplate += `Nama Customer : *${user.nama_lengkap}*%0A`;
+      WATemplate += `Telepon Customer : *${user.telepon}*%0A`;
+      WATemplate += `Masalah AC %0A`;
+      masalah.filter(i => i.cek > 0).map(itm => {
+        WATemplate += `*- ${itm.nama}*%0A`;
+      })
 
-  const formatDate = (date) => {
-    const months = [
-      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-    ];
-    const day = date.getDate();
-    const month = months[date.getMonth()];
-    const year = date.getFullYear();
-    return `${day} ${month} ${year}`;
-  };
+      if (masalah.filter(i => i.cek > 0 && i.nama == 'Lainnya').length > 0) {
+        WATemplate += `- ${lainnya}%0A`;
+      }
+      WATemplate += `%0ATanggal : *${moment(kirim.tanggal).format('dddd, DD MMMM YYYY')}*%0A`;
+      console.log(WATemplate);
+      navigation.navigate('PemesananServiceACWA', {
+        link_url: 'https://wa.me/' + kirim.telepon + '?text=' + WATemplate
+      })
 
-  const isFormComplete = () => {
-    return selectedIssues.length > 0 && date && selectedTechnician && (selectedIssues.includes('lainnya') ? otherIssue.trim() !== '' : true);
-  };
+    }
+
+  }
+
+  const MyList = ({ label, value }) => {
+    return (
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}>
+        <Text style={{
+          flex: 0.4,
+          fontFamily: fonts.secondary[800],
+          fontSize: 12,
+          color: colors.black,
+        }}>{label}</Text>
+        <Text style={{
+          marginHorizontal: 5,
+          fontFamily: fonts.secondary[600],
+          fontSize: 12,
+          color: colors.black,
+        }}>:</Text>
+        <Text style={{
+          flex: 1,
+          fontFamily: fonts.secondary[600],
+          fontSize: 12,
+          color: colors.black,
+        }}>{value}</Text>
+      </View>
+    )
+  }
 
   return (
-    <View style={{ flex: 1, backgroundColor: 'white' }}>
-      {/* HEADER */}
-      <MyHeader onPress={backPage} judul="Pemesanan Service AC" />
+    <SafeAreaView style={{
+      flex: 1,
+      backgroundColor: colors.white,
+    }}>
+      <MyHeader judul="Pemesanan Servis AC" onPress={() => navigation.goBack()} />
 
-      <ScrollView>
-        <View style={{ padding: 10 }}>
-          <View style={{ padding: 10 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 18, color: colors.primary, textAlign: 'center' }}>
-              Masalah AC
-            </Text>
-            <View style={{ padding: 0.5, backgroundColor: '#C4C4C4', borderRadius: 10, marginVertical: 10 }} />
-            {/* RADIO BUTTON MEMILIH */}
-            <View>
-              {issues.map((issue, index) => (
-                <TouchableOpacity
-                  key={index}
-                  style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10 }}
-                  onPress={() => toggleIssueSelection(issue.value)}
-                >
-                  <View
-                    style={{
-                      height: 24,
-                      width: 24,
-                      borderRadius: 5,
-                      borderWidth: 2,
-                      borderColor: '#C4C4C4',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      marginRight: 10,
-                    }}
-                  >
-                    {selectedIssues.includes(issue.value) && (
-                      <View
-                        style={{
-                          height: 12,
-                          width: 12,
-                          borderRadius: 6,
-                          backgroundColor: colors.primary,
-                        }}
-                      />
-                    )}
-                  </View>
-                  <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors.primary }}>
-                    {issue.label}
-                  </Text>
-                </TouchableOpacity>
-              ))}
-              {selectedIssues.includes('lainnya') && (
-                <View style={{ marginTop: 20 }}>
-                  <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors.primary, marginBottom: 10 }}>
-                    Jelaskan Masalah AC Anda
-                  </Text>
-                  <TextInput
-                    style={{
-                      borderWidth: 1,
-                      borderColor: '#C4C4C4',
-                      borderRadius: 10,
-                      padding: 10,
-                      fontFamily: fonts.primary[400],
-                      fontSize: 12,
-                      color: colors.black,
-                    }}
-                    multiline
-                    placeholder="Masukkan detail masalah AC Anda"
-                    value={otherIssue}
-                    onChangeText={setOtherIssue}
-                  />
-                </View>
-              )}
-            </View>
-          </View>
-          {/* END MASALAH AC */}
+      <View style={{
+        flex: 1,
+        padding: 20,
+      }}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Text style={{
+            fontFamily: fonts.secondary[800],
+            color: colors.primary,
+            fontSize: 20,
+            textAlign: 'center',
+            borderBottomWidth: 2,
+            borderColor: colors.border,
+            paddingBottom: 10,
+            marginBottom: 10,
+          }}>Masalah AC</Text>
 
-          <View style={{ padding: 10 }}>
-            <Text style={{ fontFamily: fonts.primary[600], fontSize: 18, color: colors.primary, textAlign: 'center' }}>
-              Panggil Teknisi
-            </Text>
-            <View style={{ padding: 0.5, backgroundColor: '#C4C4C4', borderRadius: 10, marginVertical: 10 }} />
+          <FlatList data={masalah} renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity onPress={() => {
+                let tmp = [...masalah];
+                tmp[index].cek = tmp[index].cek == 0 ? 1 : 0;
+                setMasalah(tmp);
+              }} style={{
+                padding: 10,
+                borderWidth: 1,
+                borderColor: item.cek > 0 ? colors.primary : colors.border,
+                marginVertical: 2,
+                borderRadius: 12,
+                flexDirection: 'row',
+                alignItems: 'center'
+              }}>
+                <Text style={{
+                  flex: 1,
+                  fontFamily: fonts.secondary[600],
+                  fontSize: 12,
+                  color: item.cek > 0 ? colors.primary : colors.black,
+                }}>{item.nama}</Text>
+                <Icon type='ionicon' name='checkmark-circle' color={item.cek > 0 ? colors.primary : colors.white} />
+              </TouchableOpacity>
+            )
+          }} />
 
-            <View>
-              {/* PICKER MASUKAN TANGGAL */}
-              <View>
-                <Text style={{ fontFamily: fonts.primary[600], fontSize: 15, color: colors.primary }}>Pilihan Tanggal</Text>
-                <TouchableOpacity
-                  style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    padding: 10,
-                    borderWidth: 1,
-                    borderColor: '#C4C4C4',
-                    borderRadius: 10,
-                    marginVertical: 10,
-                  }}
-                  onPress={showDatePicker}
-                >
-                  <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors.primary, flex: 1 }}>
-                    {date ? formatDate(date) : '-- -- ----'}
-                  </Text>
-                  <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors.primary }}>
-                    Pilih Tanggal
-                  </Text>
-                </TouchableOpacity>
-              </View>
+          {masalah.filter(i => i.cek > 0 && i.nama == 'Lainnya').length > 0 &&
 
-              <Modal
-                transparent={true}
-                visible={isDatePickerVisible}
-                onRequestClose={hideDatePicker}
-              >
+            <MyInput label="Lainnya" placeholder="Masukan Masalah lainnya" onChangeText={x => {
+              setLainnya(x)
+            }} />
+          }
+
+          <Text style={{
+            marginTop: 10,
+            fontFamily: fonts.secondary[800],
+            color: colors.primary,
+            fontSize: 20,
+            textAlign: 'center',
+            borderBottomWidth: 2,
+            borderColor: colors.border,
+            paddingBottom: 10,
+            marginBottom: 10,
+          }}>Panggil Teknisi</Text>
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: 14,
+            color: colors.primary,
+            marginBottom: 10,
+          }}>Pilihan Tanggal</Text>
+          <Calendar
+            scrollable
+            maxDate={moment().add(7, 'day').format('YYYY-MM-DD')}
+            minDate={moment().add(1, 'day').format('YYYY-MM-DD')}
+            disableAllTouchEventsForDisabledDays={true}
+            theme={{
+
+              textDayHeaderFontFamily: fonts.secondary[600],
+              textMonthFontFamily: fonts.secondary[600],
+              textDayFontFamily: fonts.secondary[600],
+              textDayFontSize: 14,
+              arrowColor: colors.primary,
+              selectedDayBackgroundColor: colors.primary,
+              todayTextColor: colors.primary
+
+            }}
+            onDayPress={x => {
+              console.log(x)
+              setKirim({
+                ...kirim,
+                tanggal: x.dateString
+              })
+            }}
+            markedDates={{
+              [kirim.tanggal]: { selected: true, disableTouchEvent: true, selectedDotColor: 'orange' }
+            }}
+
+          />
+          <MyGap jarak={20} />
+          <Text style={{
+            fontFamily: fonts.secondary[600],
+            fontSize: 14,
+            color: colors.primary,
+            marginBottom: 10,
+          }}>Pilih Nama Teknisi</Text>
+          <FlatList data={teknisi} renderItem={({ item, index }) => {
+            return (
+              <TouchableOpacity onPress={() => {
+                setKirim({
+                  id_teknisi: item.id,
+                  telepon: item.telepon
+                })
+              }} style={{
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 12,
+                backgroundColor: kirim.id_teknisi == item.id ? colors.primary : colors.white,
+                borderColor: colors.border,
+                marginVertical: 10,
+                flexDirection: 'row'
+              }}>
+                <Image source={{
+                  uri: item.foto_user
+                }} style={{
+                  height: 100,
+                  width: 100,
+                  resizeMode: 'cover',
+                  borderRadius: 12,
+                }} />
                 <View style={{
                   flex: 1,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'rgba(0,0,0,0.5)'
+                  paddingLeft: 10,
                 }}>
-                  <View style={{
-                    width: 300,
-                    padding: 20,
-                    backgroundColor: 'white',
-                    borderRadius: 10,
-                    alignItems: 'center'
-                  }}>
-                    <Text style={{ fontFamily: fonts.primary[600], fontSize: 18, color: colors.primary }}>
-                      Pilih Tanggal
-                    </Text>
-                    <DatePicker
-                      date={date || new Date()}
-                      onDateChange={handleConfirm}
-                      mode="date"
-                      textColor="black"
-                      style={{ marginTop: 20 }}
-                    />
-                    <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                      <TouchableOpacity
-                        style={{
-                          padding: 10,
-                          backgroundColor: colors.primary,
-                          borderRadius: 10,
-                          marginHorizontal: 10
-                        }}
-                        onPress={hideDatePicker}
-                      >
-                        <Text style={{ color: 'white', fontFamily: fonts.primary[600] }}>Tutup</Text>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+                  <MyList label="Nama" value={item.nama_lengkap} />
+                  <MyList label="Alamat" value={item.alamat} />
+                  <MyList label="Email" value={item.email} />
+                  <MyList label="Telepon" value={item.telepon} />
                 </View>
-              </Modal>
-
-              <MyGap jarak={10} />
-
-              {/* PICKER MEMILIH NAMA TEKNISI */}
-              <View>
-                <Text style={{ fontFamily: fonts.primary[600], fontSize: 15, color: colors.primary }}>Pilih Nama Teknisi</Text>
-                {technicians.map((technician, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={{
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      marginVertical: 10,
-                      padding: 10,
-                      borderWidth: 1,
-                      borderColor: selectedTechnician === technician.name ? colors.primary : '#C4C4C4',
-                      borderRadius: 10,
-                    }}
-                    onPress={() => setSelectedTechnician(technician.name)}
-                  >
-                    <View
-                      style={{
-                        height: 24,
-                        width: 24,
-                        borderRadius: 5,
-                        borderWidth: 2,
-                        borderColor: selectedTechnician === technician.name ? colors.primary : '#C4C4C4',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        marginRight: 10,
-                      }}
-                    >
-                      {selectedTechnician === technician.name && (
-                        <View
-                          style={{
-                            height: 12,
-                            width: 12,
-                            borderRadius: 6,
-                            backgroundColor: colors.primary,
-                          }}
-                        />
-                      )}
-                    </View>
-                    <Image source={technician.image} style={{ width: 51.18, height: 71, borderRadius: 5, marginRight: 10 }} />
-                    <View>
-                      <Text style={{ fontFamily: fonts.primary[600], fontSize: 14, color: colors.primary }}>Nama: {technician.name}</Text>
-                      <Text style={{ fontFamily: fonts.primary[400], fontSize: 12, color: colors.primary }}>Alamat: {technician.address}</Text>
-                      <Text style={{ fontFamily: fonts.primary[400], fontSize: 12, color: colors.primary }}>Email: {technician.email}</Text>
-                      <Text style={{ fontFamily: fonts.primary[400], fontSize: 12, color: colors.primary }}>Telepon: {technician.phone}</Text>
-                    </View>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-          </View>
-
-          {/* Tombol Pesan */}
-          {isFormComplete() && (
-            <View style={{ padding: 10 }}>
-              <TouchableOpacity
-                style={{
-                  backgroundColor: colors.primary,
-                  padding: 15,
-                  borderRadius: 10,
-                  alignItems: 'center',
-                  marginTop: 20,
-                }}
-                onPress={() => {
-                  navigation.navigate('PemesananServiceACWA')
-                  console.log('Pesan ditekan');
-                }}
-              >
-                <Text style={{ color: 'white', fontSize: 15, fontFamily: fonts.primary[600] }}>
-                  Pesan
-                </Text>
               </TouchableOpacity>
-            </View>
-          )}
-        </View>
-      </ScrollView>
-    </View>
-  );
+            )
+          }} />
+          <MyGap jarak={20} />
+          <MyButton onPress={sendServer} title="Simpan" />
+        </ScrollView>
+      </View>
+    </SafeAreaView>
+  )
 }
+
+const styles = StyleSheet.create({})

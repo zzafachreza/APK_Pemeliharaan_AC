@@ -1,11 +1,12 @@
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Modal, Image } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Modal, Image, Linking } from 'react-native';
 import React, { useState } from 'react';
 import DatePicker from 'react-native-date-picker';
 import { MyGap, MyHeader } from '../../components';
 import { colors, fonts } from '../../utils';
 
-export default function PemesananServiceACWA({ navigation }) {
+export default function PemesananServiceACWA({ navigation, route }) {
 
+  const URL = route.params.link_url
 
   const backPage = () => {
     navigation.navigate('MainApp');
@@ -19,16 +20,18 @@ export default function PemesananServiceACWA({ navigation }) {
 
       <ScrollView>
         <View style={{ padding: 10 }}>
-            <View style={{alignItems:'center'}}>
-                <Text style={{fontFamily:fonts.primary[600], fontSize:15, textAlign:'center',
-                color:colors.primary}}>Customer dapat berkonsultasi lebih{'\n'}lanjut secara langsung dengan{'\n'}teknisi via WhatsApp</Text>
-                <MyGap jarak={28}/>
-                <TouchableOpacity>
-                    <Image source={require('../../assets/logowa.png')} style={{
-                        width:236, height:236
-                    }}/>
-                </TouchableOpacity>
-            </View>
+          <View style={{ alignItems: 'center' }}>
+            <Text style={{
+              fontFamily: fonts.primary[600], fontSize: 15, textAlign: 'center',
+              color: colors.primary
+            }}>Customer dapat berkonsultasi lebih{'\n'}lanjut secara langsung dengan{'\n'}teknisi via WhatsApp</Text>
+            <MyGap jarak={28} />
+            <TouchableOpacity onPress={() => Linking.openURL(URL)}>
+              <Image source={require('../../assets/logowa.png')} style={{
+                width: 236, height: 236
+              }} />
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </View>

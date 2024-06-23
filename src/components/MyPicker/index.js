@@ -31,7 +31,7 @@ export default function MyPicker({
         <Text
           style={{
             fontFamily: fonts.primary[400],
-            color: colors.white,
+            color: colors.primary,
             left: 10,
             fontSize: MyDimensi / 4,
             ...styleLabel,
@@ -41,28 +41,28 @@ export default function MyPicker({
       </View>
 
       <View style={{
-       borderWidth:1,
+        borderWidth: 1,
         borderRadius: 10,
         marginTop: 5,
         fontFamily: fonts.primary[400],
 
       }}>
-<Picker
-  style={{ height: 48, transform: [{ scale: 0.9 }] }}
-  selectedValue={value}
-  onValueChange={onValueChange}
->
-  {data.map(item => {
-    return (
-      <Picker.Item
-        key={item.value}
-        label={item.label}
-        value={item.value}
-        style={{ color: 'white', fontSize: MyDimensi / 4 }}
-      />
-    );
-  })}
-</Picker>
+        <Picker
+          style={{ height: 48, transform: [{ scale: 0.9 }] }}
+          selectedValue={value}
+          onValueChange={onValueChange}
+        >
+          {data.map(item => {
+            return (
+              <Picker.Item
+                key={item.value}
+                label={item.label}
+                value={item.value}
+                style={{ color: 'white', fontSize: MyDimensi / 4 }}
+              />
+            );
+          })}
+        </Picker>
 
       </View>
     </>

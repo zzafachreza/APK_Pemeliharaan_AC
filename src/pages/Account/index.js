@@ -155,18 +155,10 @@ export default function ({ navigation, route }) {
                             <View style={{ padding: 10, }}>
                                 <MyList label="Nama Lengkap" value={user.nama_lengkap} />
                                 <MyList label="Telepon / Whatsapp" value={user.telepon} />
+                                <MyList label="Username" value={user.username} />
+                                <MyList label="Email" value={user.email} />
                                 <MyList label="Alamat" value={user.alamat} />
-                                <MyList label="Kecamatan" value={user.kecamatan} />
-                                <MyList label="Desa" value={user.desa} />
-                                <MyList label="Posyandu" value={user.posyandu} />
 
-                                {user.level == 'IBU' &&
-                                    <>
-                                        <MyList label="Nama Anak" value={user.nama_anak} />
-                                        <MyList label="Tanggal Lahir Anak" value={moment(user.tanggal_lahir).format('DD MMMM YYYY')} />
-                                        <MyList label="Jenis Kelamin" value={user.jenis_kelamin} />
-                                    </>
-                                }
 
 
                             </View>
@@ -179,7 +171,7 @@ export default function ({ navigation, route }) {
                 }}>
                     <MyButton warna={colors.primary} title="Edit Profile" Icons="create-outline" onPress={() => navigation.navigate('AccountEdit', user)} />
                     <MyGap jarak={10} />
-                    <MyButton onPress={btnKeluar} warna={colors.secondary} title="Log Out" Icons="log-out-outline" iconColor={colors.white} colorText={colors.white} />
+                    <MyButton onPress={btnKeluar} warna={colors.black} title="Log Out" Icons="log-out-outline" iconColor={colors.white} colorText={colors.white} />
                 </View>
             </ScrollView>
         </SafeAreaView >

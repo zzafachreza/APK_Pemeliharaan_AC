@@ -11,11 +11,12 @@ import SweetAlert from 'react-native-sweet-alert';
 import { color } from 'react-native-reanimated';
 import { TextInput } from 'react-native-gesture-handler';
 
-export default function Login({ navigation }) {
+export default function Login({ navigation, route }) {
 
   const [kirim, setKirim] = useState({
     api_token: api_token,
-    telepon: null,
+    level: route.params.level,
+    email: null,
     password: null
   });
   const [loading, setLoading] = useState(false);
@@ -28,13 +29,13 @@ export default function Login({ navigation }) {
 
 
 
-  const masuk = () => {
+  const sendServer = () => {
 
 
-    if (kirim.telepon == null && kirim.password == null) {
-      Alert.alert(MYAPP, 'telepon dan Password tidak boleh kosong !');
-    } else if (kirim.telepon == null) {
-      Alert.alert(MYAPP, 'telepon tidak boleh kosong !');
+    if (kirim.email == null && kirim.password == null) {
+      Alert.alert(MYAPP, 'email dan Password tidak boleh kosong !');
+    } else if (kirim.email == null) {
+      Alert.alert(MYAPP, 'email tidak boleh kosong !');
     } else if (kirim.password == null) {
       Alert.alert(MYAPP, 'Password tidak boleh kosong !');
     } else {
@@ -87,100 +88,110 @@ export default function Login({ navigation }) {
 
   return (
     <ImageBackground source={require('../../assets/bgimg.png')} style={{
-      flex:1,      
-      width:'100%',
-      height:'100%',
+      flex: 1,
+      width: '100%',
+      height: '100%',
+    }}>
+
+      <ScrollView style={{ position: "relative" }}>
+
+
+        <Animated.View style={{
+          padding: 10,
+          flex: 1, margin: 10,
+          bottom: card,
+          borderRadius: 0,
+
         }}>
 
-    <ScrollView style={{position:"relative"}}>
-
- 
-        <Animated.View style={{
-        padding: 10,
-        flex: 1, margin: 10,
-        bottom: card,
-        borderRadius: 0,
-      
-      }}>
-
-      <View style={{padding:10, marginTop:'10%'}}>
+          <View style={{ padding: 10, marginTop: '10%' }}>
 
 
-        <View style={{marginTop:61}}>
-          <Text style={{fontFamily:fonts.primary[600], textAlign:"center",
-          color:colors.primary, fontSize:32}}>Customer</Text>
-        </View>
-  
-            <MyGap jarak={33}/>
-            <View style={{padding:10}}>
-
-
-                <View>
-                    <Text style={{fontFamily:fonts.primary[600], fontSize:16, color:colors.primary,
-                    }}>Email</Text>
-                </View>
-
-                <TextInput style={{borderWidth:1, borderRadius:10, fontFamily:fonts.primary[500],
-                fontSize:12, paddingLeft:10, paddingRight:10, 
-                }} placeholder='Email' placeholderTextColor="gray"/>
-
-                        <MyGap jarak={20}/>
-
-
-                        <View>
-                    <Text style={{fontFamily:fonts.primary[600], fontSize:16, color:colors.primary,
-                    }}>Password</Text>
-                </View>
-
-                <TextInput style={{borderWidth:1, borderRadius:10, fontFamily:fonts.primary[500],
-                fontSize:12, paddingLeft:10, paddingRight:10, 
-                }} placeholder='Pasword' placeholderTextColor="gray" secureTextEntry={true}/>
+            <View style={{ marginTop: 61 }}>
+              <Text style={{
+                fontFamily: fonts.primary[600], textAlign: "center",
+                color: colors.primary, fontSize: 32
+              }}>{route.params.level}</Text>
             </View>
-                
-                <MyGap jarak={23}/>
 
-                <TouchableNativeFeedback onPress={() => navigation.navigate('MainApp')}>
-                    <View style={{padding:10, backgroundColor:colors.primary, borderRadius:10}}>
-                        <Text style={{fontFamily:fonts.primary[600],fontSize:24, color:'white',
-                        textAlign:"center"}}>Masuk</Text>
-                    </View>
-                </TouchableNativeFeedback>
-
-                <MyGap jarak={51}/>
-
-                <TouchableNativeFeedback onPress={() => navigation.navigate('Register')}>
-                    <View>
-                        <Text style={{fontFamily:fonts.primary[400], textAlign:'center'}}>Belum memiliki akun?<Text style={{
-                            color:colors.primary,  fontFamily:fonts.primary[600]
-                        }}> Register</Text> </Text>
-                    </View>
-                </TouchableNativeFeedback>
-    
-
-      </View>
-
-      
+            <MyGap jarak={33} />
+            <View style={{ padding: 10 }}>
 
 
-    
+              <View>
+                <Text style={{
+                  fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary,
+                }}>Email</Text>
+              </View>
 
-      </Animated.View>
-      <View style={{marginTop:'10%'}}>
+              <TextInput onChangeText={x => setKirim({ ...kirim, email: x })} autoCapitalize='none' style={{
+                borderWidth: 1, borderRadius: 10, fontFamily: fonts.primary[500],
+                fontSize: 12, paddingLeft: 10, paddingRight: 10,
+              }} placeholder='Email' placeholderTextColor="gray" />
 
-      </View>
- 
-
-      
+              <MyGap jarak={20} />
 
 
-      {loading && <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <ActivityIndicator color={colors.secondary} size="large" />
-      </View>}
-    </ScrollView>
+              <View>
+                <Text style={{
+                  fontFamily: fonts.primary[600], fontSize: 16, color: colors.primary,
+                }}>Password</Text>
+              </View>
+
+              <TextInput onChangeText={x => setKirim({ ...kirim, password: x })} autoCapitalize='none' style={{
+                borderWidth: 1, borderRadius: 10, fontFamily: fonts.primary[500],
+                fontSize: 12, paddingLeft: 10, paddingRight: 10,
+              }} placeholder='Pasword' placeholderTextColor="gray" secureTextEntry={true} />
+            </View>
+
+            <MyGap jarak={23} />
+
+            <TouchableNativeFeedback onPress={sendServer}>
+              <View style={{ padding: 10, backgroundColor: colors.primary, borderRadius: 10 }}>
+                <Text style={{
+                  fontFamily: fonts.primary[600], fontSize: 24, color: 'white',
+                  textAlign: "center"
+                }}>Masuk</Text>
+              </View>
+            </TouchableNativeFeedback>
+
+            <MyGap jarak={51} />
+
+            <TouchableNativeFeedback onPress={() => navigation.navigate('Register', {
+              level: route.params.level
+            })}>
+              <View>
+                <Text style={{ fontFamily: fonts.primary[400], textAlign: 'center' }}>Belum memiliki akun?<Text style={{
+                  color: colors.primary, fontFamily: fonts.primary[600]
+                }}> Register</Text> </Text>
+              </View>
+            </TouchableNativeFeedback>
+
+
+          </View>
+
+
+
+
+
+
+        </Animated.View>
+        <View style={{ marginTop: '10%' }}>
+
+        </View>
+
+
+
+
+
+        {loading && <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <ActivityIndicator color={colors.secondary} size="large" />
+        </View>}
+      </ScrollView>
     </ImageBackground>
 
 

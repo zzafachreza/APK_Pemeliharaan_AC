@@ -1,103 +1,122 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, TouchableNativeFeedback } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Image, TouchableNativeFeedback, FlatList } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { MyHeader } from '../../components';
 import { colors, fonts } from '../../utils';
+import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
+import { apiURL, getData } from '../../utils/localStorage';
+import moment from 'moment';
+import { Icon } from 'react-native-elements';
 
-export default function TeknisiRiwayatPemesanan({ navigation }) {
+export default function TeknisiRiwayatPemesanan({ navigation, route }) {
+
+  const user = route.params;
 
   const backPage = () => {
     navigation.navigate('MainApp');
   };
 
-  const navigateToEdit = (orderId) => {
-    navigation.navigate('PemesananServiceACTeknisi', { orderId });
-  };
+  const [data, setData] = useState([]);
 
-  const orders = [
-    {
-      id: 1,
-      date: '4 Juni 2024',
-      status: 'Menunggu Servis',
-      customerName: 'Riri Indriyani',
-      email: 'ririindriyani@gmail.com',
-      phone: '08934567876',
-      address: 'Jl. Banda No. 30',
-      issue: 'AC mati sendiri',
-      serviceDate: '7 Juni 2024',
-      statusColor: 'orange'
-    },
-    {
-      id: 2,
-      date: '12 Maret 2024',
-      status: 'Selesai',
-      customerName: 'Riri Indriyani',
-      email: 'ririindriyani@gmail.com',
-      phone: '08934567876',
-      address: 'Jl. Banda No. 30',
-      issue: 'Pembersihan mesin',
-      serviceDate: '15 Maret 2024',
-      statusColor: colors.primary
-    },
-    // Tambahkan lebih banyak pesanan sesuai kebutuhan
-  ];
+  const isFocus = useIsFocused();
+
+  useEffect(() => {
+    if (isFocus) {
+      __getTransaction();
+    }
+  }, [isFocus]);
+
+  const __getTransaction = () => {
+    getData('user').then(uu => {
+      axios.post(apiURL + 'pemesanan', {
+        input_by: uu.id
+      }).then(res => {
+        console.log(res.data);
+        setData(res.data);
+      })
+    })
+  }
+
+  const MyList = ({ label, value }) => {
+    return (
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center'
+      }}>
+        <Text style={{
+          flex: 0.4,
+          fontFamily: fonts.secondary[800],
+          fontSize: 12,
+          color: colors.black,
+        }}>{label}</Text>
+        <Text style={{
+          marginHorizontal: 5,
+          fontFamily: fonts.secondary[600],
+          fontSize: 12,
+          color: colors.black,
+        }}>:</Text>
+        <Text style={{
+          flex: 1,
+          fontFamily: fonts.secondary[600],
+          fontSize: 12,
+          color: colors.black,
+        }}>{value}</Text>
+      </View>
+    )
+  }
+
 
   return (
     <View style={{ flex: 1, backgroundColor: 'white' }}>
       {/* HEADER */}
       <MyHeader onPress={backPage} judul="Riwayat Pemesanan" />
 
-      <ScrollView>
-        <View style={{ padding: 10 }}>
-          {orders.map(order => (
-            <View key={order.id} style={{ marginBottom: 20, borderRadius: 10, borderWidth: 1, borderColor: '#C4C4C4', padding: 15 }}>
-              <Text style={{ fontFamily: fonts.primary[400], fontSize: 12, color: colors.primary, marginBottom: 10 }}>
-                {order.date}
-              </Text>
-              <View style={{ padding: 10, backgroundColor: 'white', borderRadius: 10, shadowColor: '#000', shadowOpacity: 0.1, shadowRadius: 5 }}>
-                <Text style={{ fontFamily: fonts.primary[600], fontSize: 12, color: colors.primary, marginBottom: 5 }}>
-                  Pemesanan Servis AC
-                </Text>
-                <Text style={{ fontFamily: fonts.primary[400], fontSize: 10, color: colors.primary }}>
-                  Nama: {order.customerName}
-                </Text>
-                <Text style={{ fontFamily: fonts.primary[400], fontSize: 10, color: colors.primary }}>
-                  Email: {order.email}
-                </Text>
-                <Text style={{ fontFamily: fonts.primary[400], fontSize: 10, color: colors.primary }}>
-                  Telepon: {order.phone}
-                </Text>
-                <Text style={{ fontFamily: fonts.primary[400], fontSize: 10, color: colors.primary }}>
-                  Alamat: {order.address}
-                </Text>
-                <Text style={{ fontFamily: fonts.primary[400], fontSize: 10, color: colors.primary }}>
-                  Masalah AC: {order.issue}
-                </Text>
-                <Text style={{ fontFamily: fonts.primary[400], fontSize: 10, color: colors.primary }}>
-                  Waktu: {order.serviceDate}
-                </Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
-                  <View style={{ backgroundColor: order.statusColor, padding: 5, borderRadius: 5 }}>
-                    <Text style={{ color: 'black', fontFamily: fonts.primary[400] }}>
-                      {order.status}
-                    </Text>
-                  </View>
-                  <TouchableOpacity onPress={() => navigateToEdit(order.id)}>
-                    <Image source={require('../../assets/edit-icon.png')} style={{ width: 17, height: 17 }} />
-                  </TouchableOpacity>
-                </View>
-              </View>
+      <View style={{
+        flex: 1,
+        padding: 20,
+      }}>
+        <FlatList data={data} renderItem={({ item, index }) => {
+          return (
+            <View style={{
+              borderWidth: 1,
+              padding: 10,
+              marginVertical: 10,
+              borderRadius: 12,
+              borderColor: colors.border,
+            }}>
+              <MyList label="Waktu" value={moment(item.tanggal).format('dddd, DD MMMM YYYY')} />
+              <MyList label="Nama" value={item.nama_lengkap} />
+              <MyList label="Email" value={item.email} />
+              <MyList label="Telepon" value={item.telepon} />
+              <MyList label="Alamat" value={item.alamat} />
+              <MyList label="Masalah AC" value={item.masalah} />
+              <MyList label="Status" value={item.status} />
+              <TouchableOpacity onPress={() => navigation.navigate('EditPemesanan', item)} style={{
+                width: 50,
+                height: 30,
+                alignSelf: 'flex-end',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Icon type='ionicon' name='create-outline' color={colors.primary} />
+              </TouchableOpacity>
             </View>
-          ))}
-        </View>
-      </ScrollView>
+          )
+        }} />
+      </View>
 
-      <TouchableNativeFeedback onPress={() => navigation.navigate('PemesananServiceACTeknisi')}>
-        <View style={{top:-30, padding:10, flexDirection:'row', justifyContent:'flex-end'}}>
-           <View>
-           <Image source={require('../../assets/tomboltambah.png')} style={{
-                width:62, height:62
-            }}/>
-           </View>
+
+      <TouchableNativeFeedback onPress={() => navigation.navigate('PemesananServiceACTeknisi', user)}>
+        <View style={{
+          position: 'absolute',
+          bottom: 20,
+          right: 20,
+        }}>
+          <View>
+            <Image source={require('../../assets/tomboltambah.png')} style={{
+              width: 62, height: 62
+            }} />
+          </View>
         </View>
       </TouchableNativeFeedback>
     </View>

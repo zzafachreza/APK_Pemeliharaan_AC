@@ -10,7 +10,7 @@ export default function MyInput({
   onFocus,
   label,
   nolabel = false,
-  borderColor = colors.white,
+  borderColor = colors.black,
   backgroundColor = '#F0F0F0',
   editable,
   icon = true,
@@ -19,7 +19,7 @@ export default function MyInput({
   onChangeText,
   value,
   borderWidth = 1,
-  textColor = colors.white,
+  textColor = colors.black,
   keyboardType,
   secureTextEntry,
   styleInput,
@@ -28,7 +28,7 @@ export default function MyInput({
   multiline,
   label2,
   styleLabel,
-  colorIcon = colors.white,
+  colorIcon = colors.primary,
 }) {
 
   const [tutup, setTutup] = useState(true);
@@ -63,7 +63,7 @@ export default function MyInput({
       }}>
         <TextInput
           editable={editable}
-          placeholderTextColor="rgba(255, 255, 255, 0.5)"
+          placeholderTextColor={colors.placeholder}
           maxLength={maxLength}
           multiline={multiline}
           autoFocus={autoFocus}
@@ -75,16 +75,16 @@ export default function MyInput({
           value={value}
           onChangeText={onChangeText}
           autoCapitalize="none"
-          
+
           style={{
-            borderBottomWidth:1,
-            borderColor:borderColor,
+            borderWidth: 1,
+            borderColor: borderColor,
             borderRadius: 10,
             paddingLeft: 20,
             color: textColor,
             fontSize: MyDimensi / 4,
             fontFamily: fonts.primary[400],
-            
+
             ...styleInput,
           }}
         />

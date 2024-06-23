@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -8,51 +8,6 @@ import {
   Register,
   Account,
   AccountEdit,
-  Konten,
-  TanyaJawab,
-  Notifikasi,
-  Artikel,
-  ArtikelDetail,
-  Video,
-  VideoDetail,
-  Resep,
-  ResepDetail,
-  AsupanMpasi,
-  AsupanAsi,
-  StatusGizi,
-  StatusGiziHasil,
-  KursionerVark,
-  GayaBelajarVisual,
-  GayaBelajarAudio,
-  GayaBelajarReading,
-  
-
-  GayaBelajarKinaesthetic,
-  Diagnosa2,
-  Periksagigimu,
-  Gigilubang,
-  TumpatanGigi,
-  PaketUmrah,
-  Pendaftaran,
-  UpdateSeat,
-  Pembayaran,
-  Saldoku,
-  DataJamaah,
-  DataJamaah2,
-  Royalti,
-  MakananBalita,
-  ResepMakananBalita,
-  MakananIbuhamil,
-  ResepMakananIbuHamil,
-  konsultasionline,
-  ProfileAplikasi,
-  IMTCalculator,
-  HasilIMTCalculator,
-  HomeAnemia,
-  WhatsIsAnemia,
-  AnemiaCouses,
-  AnemiaHelt,
-  ArtikelLainnya,
   MasukSebagai,
   LoginTeknisi,
   RegisterTeknisi,
@@ -64,6 +19,7 @@ import {
   TeknisiRiwayatPemesanan,
   PemesananServiceACTeknisi,
   AccountTeknisi,
+  EditPemesanan,
 
 
 } from '../pages';
@@ -71,28 +27,38 @@ import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator, TeknisiBottomNavigator } from '../components';
-import Diagnosa from '../pages/Diagnosa';
-import TypeAnemia from '../pages/Anemia/typeanemia';
+import { getData } from '../utils/localStorage';
 
 const Tab = createBottomTabNavigator();
 
 const Stack = createStackNavigator();
 
+
+
 const MainApp = () => {
+
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getData('user').then(uu => {
+      setUser(uu)
+    })
+  }, [])
+
   return (
     <Tab.Navigator initialRouteName='Produk' tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="RiwayatPemesanan" component={RiwayatPemesanan} />
+      {user.level == 'Customer' && <Tab.Screen name="RiwayatPemesanan" component={RiwayatPemesanan} />}
       <Tab.Screen name="Account" component={Account} />
     </Tab.Navigator>
   );
 };
 
 const TeknisiMainApp = () => {
-  return(
-    <Tab.Navigator initialRouteName='' tabBar={props => <TeknisiBottomNavigator {...props}/>}>
-    <Tab.Screen name="TeknisiHome" component={TeknisiHome}/>
-    <Tab.Screen name="AccountTeknisi" component={AccountTeknisi}/>
+  return (
+    <Tab.Navigator initialRouteName='' tabBar={props => <TeknisiBottomNavigator {...props} />}>
+      <Tab.Screen name="TeknisiHome" component={TeknisiHome} />
+      <Tab.Screen name="AccountTeknisi" component={AccountTeknisi} />
     </Tab.Navigator>
   )
 }
@@ -137,7 +103,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="MasukSebagai"
         component={MasukSebagai}
         options={{
@@ -147,8 +113,8 @@ export default function Router() {
       />
 
 
-      
-<Stack.Screen
+
+      <Stack.Screen
         name="LoginTeknisi"
         component={LoginTeknisi}
         options={{
@@ -158,7 +124,7 @@ export default function Router() {
       />
 
 
-<Stack.Screen
+      <Stack.Screen
         name="RegisterTeknisi"
         component={RegisterTeknisi}
         options={{
@@ -167,7 +133,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="PenggunaanAC"
         component={PenggunaanAC}
         options={{
@@ -176,7 +142,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="PemesananServiceAC"
         component={PemesananServiceAC}
         options={{
@@ -187,7 +153,7 @@ export default function Router() {
 
 
 
-<Stack.Screen
+      <Stack.Screen
         name="PemesananServiceACWA"
         component={PemesananServiceACWA}
         options={{
@@ -196,7 +162,7 @@ export default function Router() {
         }}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="RiwayatPemesanan"
         component={MainApp}
         options={{
@@ -207,7 +173,7 @@ export default function Router() {
 
 
 
-<Stack.Screen
+      <Stack.Screen
         name="TeknisiHome"
         component={TeknisiMainApp}
         options={{
@@ -217,8 +183,8 @@ export default function Router() {
       />
 
 
-      
-<Stack.Screen
+
+      <Stack.Screen
         name="PemesananServiceACTeknisi"
         component={PemesananServiceACTeknisi}
         options={{
@@ -231,7 +197,7 @@ export default function Router() {
 
 
 
-<Stack.Screen
+      <Stack.Screen
         name="AccountTeknisi"
         component={TeknisiMainApp}
         options={{
@@ -240,7 +206,14 @@ export default function Router() {
         }}
       />
 
+      <Stack.Screen
+        name="EditPemesanan"
+        component={EditPemesanan}
+        options={{
+          headerShown: false,
 
+        }}
+      />
 
 
       <Stack.Screen
@@ -281,7 +254,7 @@ export default function Router() {
         }}
       />
 
-    
+
 
 
 

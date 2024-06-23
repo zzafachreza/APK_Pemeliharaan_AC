@@ -86,78 +86,91 @@ export default function MasukSebagai({ navigation }) {
 
   return (
     <ImageBackground source={require('../../assets/bgimg.png')} style={{
-      flex:1,      
-      width:'100%',
-      height:'100%',
+      flex: 1,
+      width: '100%',
+      height: '100%',
+    }}>
+
+      <ScrollView style={{ position: "relative" }}>
+
+
+        <Animated.View style={{
+          padding: 10,
+          flex: 1, margin: 10,
+          bottom: card,
+          borderRadius: 0,
+
         }}>
 
-    <ScrollView style={{position:"relative"}}>
+          <View style={{ padding: 10, marginTop: '30%' }}>
 
- 
-        <Animated.View style={{
-        padding: 10,
-        flex: 1, margin: 10,
-        bottom: card,
-        borderRadius: 0,
-      
-      }}>
+            <Image source={require('../../assets/logo.png')} style={{
+              height: 158, width: 237,
+              alignItems: 'center',
+              alignSelf: "center",
 
-      <View style={{padding:10, marginTop:'30%'}}>
+            }} />
 
-      <Image source={require('../../assets/logo.png')} style={{
-        height:158, width:237,
-        alignItems:'center',
-        alignSelf:"center",
-        
-      }}/>
+            <View style={{ marginTop: 61 }}>
+              <Text style={{
+                fontFamily: fonts.primary[600], textAlign: "center",
+                color: colors.primary, fontSize: 18
+              }}>Masuk Sebagai</Text>
+            </View>
+            {/* COSTUMER */}
+            <TouchableNativeFeedback onPress={() => navigation.navigate('Login', {
+              level: 'Customer'
+            })}>
+              <View style={{
+                padding: 10, backgroundColor: colors.primary, marginTop: 5,
+                borderRadius: 20,
+              }}>
+                <Text style={{
+                  textAlign: "center", fontFamily: fonts.primary[600], fontSize: 25,
+                  color: 'white'
+                }}>Customer</Text>
+              </View>
+            </TouchableNativeFeedback>
+            <MyGap jarak={15} />
+            {/* TEKNISI */}
+            <TouchableNativeFeedback onPress={() => navigation.navigate('Login', {
+              level: 'Teknisi'
+            })}>
+              <View style={{
+                padding: 10, backgroundColor: colors.primary, marginTop: 5,
+                borderRadius: 20,
+              }}>
+                <Text style={{
+                  textAlign: "center", fontFamily: fonts.primary[600], fontSize: 25,
+                  color: "white"
+                }}>Teknisi</Text>
+              </View>
+            </TouchableNativeFeedback>
 
-        <View style={{marginTop:61}}>
-          <Text style={{fontFamily:fonts.primary[600], textAlign:"center",
-          color:colors.primary, fontSize:18}}>Masuk Sebagai</Text>
+          </View>
+
+
+
+
+
+
+        </Animated.View>
+        <View style={{ marginTop: '10%' }}>
+
         </View>
-        {/* COSTUMER */}
-        <TouchableNativeFeedback onPress={() => navigation.navigate('Login')}>
-          <View style={{padding:10, backgroundColor:colors.primary, marginTop:5,
-          borderRadius:20,}}>
-            <Text style={{textAlign:"center", fontFamily:fonts.primary[600], fontSize:25,
-            color:'white'}}>Customer</Text>
-          </View>
-        </TouchableNativeFeedback>
-            <MyGap jarak={15}/>
-        {/* TEKNISI */}
-        <TouchableNativeFeedback onPress={() => navigation.navigate('LoginTeknisi')}>
-          <View style={{padding:10, backgroundColor:colors.primary, marginTop:5,
-          borderRadius:20,}}>
-            <Text style={{textAlign:"center", fontFamily:fonts.primary[600], fontSize:25,
-            color:"white"
-            }}>Teknisi</Text>
-          </View>
-        </TouchableNativeFeedback>
-
-      </View>
-
-      
 
 
-    
-
-      </Animated.View>
-      <View style={{marginTop:'10%'}}>
-
-      </View>
- 
-
-      
 
 
-      {loading && <View style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <ActivityIndicator color={colors.secondary} size="large" />
-      </View>}
-    </ScrollView>
+
+        {loading && <View style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <ActivityIndicator color={colors.secondary} size="large" />
+        </View>}
+      </ScrollView>
     </ImageBackground>
 
 
