@@ -52,7 +52,7 @@ export default function MyInput({
             fontFamily: fonts.secondary[600],
             color: colorIcon,
             left: icon ? 10 : 5,
-            fontSize: MyDimensi / 4,
+            fontSize: 12,
             ...styleLabel,
           }}>
           {label}
@@ -82,7 +82,7 @@ export default function MyInput({
             borderRadius: 10,
             paddingLeft: 20,
             color: textColor,
-            fontSize: MyDimensi / 4,
+            fontSize: 12,
             fontFamily: fonts.primary[400],
 
             ...styleInput,

@@ -39,7 +39,7 @@ export default function MyCalendar({
             fontFamily: fonts.secondary[600],
             color: textColor,
             left: 10,
-            fontSize: MyDimensi / 4,
+            fontSize: 12,
             ...styleLabel,
           }}>
           {label}
@@ -59,7 +59,7 @@ export default function MyCalendar({
           top: 15,
           left: 20,
           fontFamily: fonts.secondary[600],
-          fontSize: MyDimensi / 4
+          fontSize: 12
         }}>{moment(value).format('DD MMMM YYYY')}</Text>
         <DatePicker
 

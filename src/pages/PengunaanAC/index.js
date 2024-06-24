@@ -64,7 +64,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -77,7 +77,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -90,7 +90,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -103,7 +103,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -116,7 +116,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 16;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -129,7 +129,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 16;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -142,7 +142,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 16;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -155,7 +155,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 16;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -168,7 +168,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 9;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -181,7 +181,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 9;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -194,7 +194,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 9;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -207,7 +207,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 9;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -220,7 +220,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -233,7 +233,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -246,7 +246,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -259,7 +259,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -272,7 +272,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -285,7 +285,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -298,7 +298,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -311,7 +311,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -324,7 +324,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -337,7 +337,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -350,7 +350,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -363,7 +363,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -376,7 +376,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -389,7 +389,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -402,7 +402,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -415,7 +415,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -428,7 +428,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -441,7 +441,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -454,7 +454,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -467,7 +467,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -480,7 +480,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -493,7 +493,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -506,7 +506,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -519,7 +519,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 0;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -532,7 +532,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -545,7 +545,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -558,7 +558,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -571,7 +571,7 @@ export default function PenggunaanAC({ navigation, route }) {
         let hari = 23;
         KIRIM = {
           ...kirim,
-          informasi: kirim.terakhir_service == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(kirim.tanggal_service).format('dddd, DD MMMM YYYY'),
+          informasi: moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('YYYY-MM-DD') == moment().format('YYYY-MM-DD') ? 'Segera panggil Teknisi untuk service AC' : moment(moment().add(bulan, 'M').format('YYYY-MM-DD')).add(hari, 'day').format('dddd, DD MMMM YYYY'),
           bulan: bulan,
           hari: hari,
           terakhir_service: selectedService,
@@ -585,10 +585,10 @@ export default function PenggunaanAC({ navigation, route }) {
       console.log(KIRIM);
       setKirim(KIRIM);
 
-      axios.post(apiURL + 'penggunaan_add', KIRIM).then(res => {
-        console.log(res.data);
-        setIsSubmitted(true);
-      })
+      // axios.post(apiURL + 'penggunaan_add', KIRIM).then(res => {
+      //   console.log(res.data);
+      setIsSubmitted(true);
+      // })
 
     }
 
