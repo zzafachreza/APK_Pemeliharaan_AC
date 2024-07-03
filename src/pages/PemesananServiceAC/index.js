@@ -85,7 +85,7 @@ export default function PemesananServiceACTeknisi({ navigation, route }) {
           <MyGap jarak={20} />
           <MyPicker label="Status Pemesanan" data={[
             { label: 'Menunggu Servis', value: 'Menunggu Servis' },
-            { label: 'Sedang Berlansung', value: 'Sedang Berlansung' },
+            { label: 'Sedang Berlangsung', value: 'Sedang Berlangsung' },
             { label: 'Selesai', value: 'Selesai' },
             { label: 'Pesanan Batal', value: 'Pesanan Batal' },
 

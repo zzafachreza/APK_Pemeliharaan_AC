@@ -585,10 +585,10 @@ export default function PenggunaanAC({ navigation, route }) {
       console.log(KIRIM);
       setKirim(KIRIM);
 
-      // axios.post(apiURL + 'penggunaan_add', KIRIM).then(res => {
-      //   console.log(res.data);
-      setIsSubmitted(true);
-      // })
+      axios.post(apiURL + 'penggunaan_add', KIRIM).then(res => {
+        console.log(res.data);
+        setIsSubmitted(true);
+      })
 
     }
 
